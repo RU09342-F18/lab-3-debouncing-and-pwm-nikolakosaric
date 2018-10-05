@@ -3,10 +3,12 @@
 int main(void){
     WDTCTL = WDTPW | WDTHOLD;   // Stop watchdog timer
 
-    UCSCTL4 = SELA_0;           //
+    //UCSCTL4 = SELA_0;           //
 
     //P1SEL &= ~(BIT0 + BIT3);    // Selects I/O function
     //P1SEL2 &= ~(BIT0 + BIT3);   // Selects I/O function
+
+    PM5CTL0 &= ~LOCKLPM5;
 
     //LED
     P1DIR |= BIT0;              // Sets P1.0 in the output direction
@@ -24,8 +26,8 @@ int main(void){
                                 // to low transition
     P1IFG &= ~BIT1;             // P1.1 interrupt flag is cleared
 
-    TA0CCTL0 |= CCIE;           // Capture/compare interrupt enabled
-    TA0CCR0 = 0x31;             // Sets the compare register to be triggered
+    TB0CCTL0 |= CCIE;           // Capture/compare interrupt enabled
+    TB0CCR0 = 0x31;             // Sets the compare register to be triggered
                                 // every 1 ms
 
     _BIS_SR(LPM0_bits + GIE);   // Sets the processor to low processor mode
@@ -35,17 +37,17 @@ int main(void){
 
 #pragma vector = PORT1_VECTOR
 __interrupt void button_interrupt(void){
-    TA0CTL = TASSEL_2 + MC_2 + TACLR;
+    TB0CTL = TBSSEL_2 + MC_2 + TBCLR;
                                 // Sets timer to A clock, sets the clock to
                                 // continuous mode and clears the clock
     P1IFG &= ~BIT1;             // P1.1 interrupt flag is cleared
     P1IES ^= BIT1;              // Toggles the edge triggers the interrupt
 }
 
-#pragma vector = TIMER0_A0_VECTOR
-__interrupt void timer0_a_interrupt(void){
+#pragma vector = TIMER0_B0_VECTOR
+__interrupt void timer0_b_interrupt(void){
     if (!(P1IN & BIT1)){
         P1OUT ^= BIT0;              // Toggles the state of P1.0
     }
-    TA0CTL = MC_0;              // Halts the timer
+    TB0CTL = MC_0;              // Halts the timer
 }
