@@ -1,7 +1,5 @@
 #include <msp430.h> 
 
-#include <msp430.h>
-
 int main(void){
     WDTCTL = WDTPW + WDTHOLD;   // Stop WDT
     P2DIR |= BIT1;              // Sets P2.1 in the input direction
