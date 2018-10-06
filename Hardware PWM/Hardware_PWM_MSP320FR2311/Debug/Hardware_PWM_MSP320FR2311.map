@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v18.1.2                     
 ******************************************************************************
->> Linked Fri Oct  5 17:45:37 2018
+>> Linked Fri Oct  5 22:49:18 2018
 
 OUTPUT FILE NAME:   <Hardware_PWM_MSP320FR2311.out>
 ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 0000f18c
