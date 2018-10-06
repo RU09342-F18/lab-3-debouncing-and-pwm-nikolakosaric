@@ -21,7 +21,7 @@ int main(void) {
 
 	P1IE |= BIT1;               // P1.1 interrupt enabled
 	P1IES |= BIT1;              // P1.1 interrupt flag is set with a high
-	                                // to low transition
+	                            // to low transition
 	P1IFG &= ~BIT1;             // P1.1 interrupt flag is cleared
 
 	// Timer
